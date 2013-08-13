@@ -1,18 +1,12 @@
-<h4> Creating a New Post Object </h4>
 
-<h5>  HTML Form  <h5>
+<h5> Model Backed Form Helpers </h5>
 
- <form action = '/posts' method='post'>  
-    Title:
-    <input type = 'text' name = 'title' >
-</br>
-    URL:
-    <input type = 'text' name = 'url' >
-</br>
-    Description:
-    <input type = 'text' name = 'description' >
+   <%= form_for @post  do |f|  %>
 
-</br>
-<input type ='submit' >
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br/>
+  <%= f.submit "Create Post" %>
 
- </form>
+  <% end  %>
+  
