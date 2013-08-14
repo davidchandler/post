@@ -16,20 +16,22 @@ class PostsController < ApplicationController
 
   def create
     #binding.pry
-   # @post = Post.new(post_params)
+    @post = Post.new(post_params)
+   
 
-    @post.save
+    if @post.save
+     flash[:notice] = "Your post was created!"
+     redirect_to posts_path
 
-
-   ## if @post.save
-    #  redirect_to root_path, notice: "Your post was created!"
-  #  else
-   #   render :new
-  #  end
+    # redirect_to root_path, notice: "Your post was created!"
+    else
+     render :new
+    end
 
   end
 
   def edit
+   # @post = Post.find(params[:id])
   end
 
   def update
