@@ -1,18 +1,14 @@
 class CategoriesController < ApplicationController
-  
   def new
     @category = Category.new
   end
 
   def create
-    #binding.pry
-    @category = Category.find(params[:id])
-      
-
+    @category = Category.new(params.require(:category).permit(:name))
     if @category.save
-      redirect_to category_path(@category), notice: "Category was created!"
+      redirect_to root_path, notice: "New category created!"
     else
-      render 'posts/show'
+      render :new
     end
   end
 end
