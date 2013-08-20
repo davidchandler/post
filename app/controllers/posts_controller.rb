@@ -6,8 +6,9 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    #@post = Post.find(params[:id])   #  dont need because of the before_action and def set_post
     @comment = Comment.new
+    @categories = Category.all
   end
 
   def new
@@ -25,21 +26,26 @@ class PostsController < ApplicationController
 
     # redirect_to root_path, notice: "Your post was created!"
     else
-     render :new
+     render :new     #  just renders the template, not a redirect back to the new action
     end
 
   end
 
   def edit
-   @post = Post.find(params[:id])
+   #@post = Post.find(params[:id])   #  dont need because of the before_action and def set_post
    render :edit
   end
 
   def update
+
+   # @post = Post.find(params[:id])    #  dont need because of the before_action and def set_post
+
     if @post.update(post_params)
-      redirect_to root_path, notice: "Your post was updated!"
+     flash[:notice] = "Your post was update!"
+     redirect_to post_path(@post)
+
     else
-      render :edit
+      render :edit     #  just renders the template, not a redirect back to the edit action
     end
   end
 

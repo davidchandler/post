@@ -1,4 +1,8 @@
-<h3>Viewing '<%= @post.title %>'</h3>
+<span class="badge">
+  <%= link_to category.name, category_path(category) %>
+</span>
+
+<h3><%= @post.title %>'</h3>
 <h5>URL: </h5> <%= @post.url %>
 <h5>Description: </h5> <%= @post.description %>
 
