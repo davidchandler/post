@@ -1,6 +1,7 @@
-<span class="badge">
-  <%= link_to category.name, category_path(category) %>
-</span>
+<% @post.categories.each do |category| %>
+ <%=  category.name %>
+<% end %>
+
 
 <h3><%= @post.title %>'</h3>
 <h5>URL: </h5> <%= @post.url %>

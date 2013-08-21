@@ -1,5 +1,11 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
+ # before_action :set_post, only: [:show, :edit, :update]
+  before_action :require_user, only: [:new, :create, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
+  before_action :require_creator, only: [:edit, :update]
+
+
+
 
   def index
     @posts = Post.all
@@ -18,11 +24,14 @@ class PostsController < ApplicationController
   def create
     #binding.pry
     @post = Post.new(post_params)
+     @post.user = current_user
+
    
 
     if @post.save
-     flash[:notice] = "Your post was created!"
-     redirect_to posts_path
+      
+      flash[:notice] = "Your post was created!"
+      redirect_to posts_path
 
     # redirect_to root_path, notice: "Your post was created!"
     else
@@ -58,5 +67,7 @@ class PostsController < ApplicationController
   def set_post
     @post = Post.find(params[:id])
   end
+
+
 
 end
