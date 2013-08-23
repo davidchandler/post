@@ -7,17 +7,17 @@
 <h5>URL: </h5> <%= @post.url %>
 <h5>Description: </h5> <%= @post.description %>
 
-<div>
-  <h5>New Comment:</h5>
-  <%= render 'shared/errors', obj: @comment %>
-  <%= form_for [@post, @comment] do |f| %>
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-    <br/>
-    <%= f.submit "Create comment" %>
-  <% end %>
 
-</div>
+
+  <% if logged_in?   %>
+    <%= render 'shared/errors', obj: @comment %>
+    <%= form_for [@post, @comment] do |f| %>
+      <%= f.label :body %>
+      <%= f.text_area :body %>
+      <br/>
+      <%= f.submit "Create comment" %>
+    <% end %>
+  <% end %>
 
 <h5>Comments:</h5>
 <ul>

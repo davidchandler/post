@@ -21,7 +21,8 @@ class PostsController < ApplicationController
   def create
     #binding.pry
     @post = Post.new(post_params)
-     @post.user = current_user
+    #@post.user = current_user
+    @post.creator = current_user
 
    
 
