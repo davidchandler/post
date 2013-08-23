@@ -7,8 +7,6 @@
   <% if logged_in? %>
     <li>
       <%= current_user.username %>
-
-     
     </li>
     <li>
       <%= link_to 'New Post', new_post_path %>
@@ -19,7 +17,6 @@
     <li>
       <%= link_to 'Logout', logout_path  %>
     </li>
-
 
   <% else %>
     <li>
