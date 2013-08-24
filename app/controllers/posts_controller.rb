@@ -1,7 +1,9 @@
 class PostsController < ApplicationController
  # before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_user, only: [:new, :create, :edit, :update]
-  before_action :set_post, only: [:show, :edit, :update, :vote]
+  before_action :set_post, only: [:show, :edit, :update]
+  before_action :require_user, only: [:new, :create, :edit, :update, :vote]
+  before_action :require_creator, only: [:edit, :update]
+  
   
 
   def index
@@ -48,12 +50,19 @@ class PostsController < ApplicationController
    # @post = Post.find(params[:id])    #  dont need because of the before_action and def set_post
 
     if @post.update(post_params)
-     flash[:notice] = "Your post was update!"
-     redirect_to post_path(@post)
+      flash[:notice] = "Your post was update!"
+      redirect_to post_path(@post)
 
     else
       render :edit     #  just renders the template, not a redirect back to the edit action
     end
+  end
+
+
+  def vote
+    Vote.create(voteable: @post,creator: current_user,vote: [params: vote])
+    flash[:notice] = "Your vote was counted!"
+    redirect_to posts_path
   end
 
   private
@@ -66,6 +75,14 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
+  def require_creator
+   access_denied if @post.creator != current_user
+  end
+  
 
-
+  def access_denied
+    flash[:error] = "You can't do that!"
+    redirect_to root_path
+  end
+  
 end
