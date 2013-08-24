@@ -6,7 +6,8 @@
   <li>
   (
    <%= link_to '+', vote_post_path(post, vote:true),method: 'post' %>
-   /
+  
+   <%= post.votes.size.to_s  %>
    <%= link_to '-', vote_post_path(post, vote:false),method: 'post' %>
    )
   <%= link_to post.title, post_path(post) %> 

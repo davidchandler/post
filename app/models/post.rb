@@ -10,4 +10,8 @@ class Post < ActiveRecord::Base
   validates :title, presence: true, length: {minimum: 5}
   validates :url,   presence: true
 
+  def total_votes
+    self.votes.where(vote: true).size  - self.votes.where(vote: false).size 
+  end
+
 end
