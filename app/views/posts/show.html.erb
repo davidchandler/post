@@ -6,10 +6,7 @@
 <h3><%= @post.title %>'</h3>
 <h5>URL: </h5> <%= @post.url %>
 <h5>Description: </h5> <%= @post.description %>
-
-
-
- 
+  <% if logged_in? %>
     <%= render 'shared/errors', obj: @comment %>
     <%= form_for [@post, @comment] do |f| %>
       <%= f.label :body %>
@@ -17,17 +14,23 @@
       <br/>
       <%= f.submit "Create comment" %>
     <% end %>
+  <% end %>
   
 
 <h5>Comments:</h5>
 <ul>
   <% @post.comments.each do |comment| %>
-
-  <%= link_to '+', vote_post_comment_path(comment, vote:true),method: 'post' %>
-
-    <li><%= comment.body %> By <%= comment.creator.username %>  </li>
+    <% if current_user   %>
+      <%= link_to '+', vote_post_comment_path(comment.post, comment.id, vote:true),method: 'post' %>
+    <% end %>
+      <%= comment.total_votes.to_s %>
+    <% if current_user   %>
+      <%= link_to '-', vote_post_comment_path(comment.post, comment.id, vote:false),method: 'post' %>
+    <% end %>
+      <li><%= comment.body %> By <%= comment.creator.username %>  </li>
+    
   <% end %>
-  <% end %>
+ 
 </ul>
 
 

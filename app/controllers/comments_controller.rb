@@ -2,10 +2,10 @@ class CommentsController < ApplicationController
    before_action :require_user
 
    def vote
-    binding.pry
+      @comment = Comment.find(params[:id])
       Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
       flash[:notice] = "Your vote was counted."
-      redirect_to posts_path
+      redirect_to post_path(@comment.post)
   end
 
   def create
