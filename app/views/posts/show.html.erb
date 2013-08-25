@@ -9,7 +9,7 @@
 
 
 
-  <% if logged_in?   %>
+ 
     <%= render 'shared/errors', obj: @comment %>
     <%= form_for [@post, @comment] do |f| %>
       <%= f.label :body %>
@@ -17,12 +17,16 @@
       <br/>
       <%= f.submit "Create comment" %>
     <% end %>
-  <% end %>
+  
 
 <h5>Comments:</h5>
 <ul>
   <% @post.comments.each do |comment| %>
+
+  <%= link_to '+', vote_post_comment_path(comment, vote:true),method: 'post' %>
+
     <li><%= comment.body %> By <%= comment.creator.username %>  </li>
+  <% end %>
   <% end %>
 </ul>
 
