@@ -5,7 +5,8 @@ class CommentsController < ApplicationController
     @comment = Comment.find(params[:id])
     @voteexistsc = Vote.where(voteable: @comment, creator: current_user).first
     
-    if !@voteexistsc.nil?
+   
+     if current_user.already_voted_on?(@comment)
       flash[:notice] = "User has already voted!"
       redirect_to post_path(@comment.post)
 

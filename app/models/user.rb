@@ -12,4 +12,9 @@ class User < ActiveRecord::Base
      presence: true,
      on: :create,
      length: { minimum: 3 }
+
+   def already_voted_on?(obj)
+     self.votes.where(voteable: obj).size > 0
+   end 
+
 end

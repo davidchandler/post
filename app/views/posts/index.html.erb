@@ -5,8 +5,10 @@
 
 <% @posts.each do |post| %>
 
+"hello"
+
   <li>
-  
+
    <% if current_user   %>
      (
      <%= link_to '+', vote_post_path(post, vote:true),method: 'post' %>

@@ -59,19 +59,18 @@ class PostsController < ApplicationController
   end
 
   def vote
-    @voteexists = Vote.where(voteable: @post, creator: current_user).first
-    if !@voteexists.nil?
-      flash[:notice] = "User has already voted!"
-      redirect_to posts_path
+    
+          Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 
-     else
-
-      Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
-      flash[:notice] = "Your vote was counted."
-      redirect_to posts_path
-     end
-
-
+       respond_to do |format|   #because we are issueing an ajax request
+        format.html do
+          flash[:notice] = "Your vote was counted."
+          redirect_to :back
+        end
+       format.js do
+       render :vote # /posts/vote.js.erb
+       end
+    end
   end
 
 
