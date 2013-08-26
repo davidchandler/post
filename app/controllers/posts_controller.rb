@@ -59,11 +59,21 @@ class PostsController < ApplicationController
   end
 
   def vote
+    @voteexists = Vote.where(voteable: @post, creator: current_user).first
+    if !@voteexists.nil?
+      flash[:notice] = "User has already voted!"
+      redirect_to posts_path
+
+     else
+
       Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
       flash[:notice] = "Your vote was counted."
       redirect_to posts_path
+     end
+
+
   end
-  
+
 
   private
 

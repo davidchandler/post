@@ -2,10 +2,21 @@ class CommentsController < ApplicationController
    before_action :require_user
 
    def vote
-      @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:id])
+    @voteexistsc = Vote.where(voteable: @comment, creator: current_user).first
+    
+    if !@voteexistsc.nil?
+      flash[:notice] = "User has already voted!"
+      redirect_to post_path(@comment.post)
+
+     else
       Vote.create(voteable: @comment, creator: current_user, vote: params[:vote])
       flash[:notice] = "Your vote was counted."
       redirect_to post_path(@comment.post)
+      
+     end
+
+
   end
 
   def create
