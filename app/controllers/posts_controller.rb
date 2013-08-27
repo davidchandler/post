@@ -59,20 +59,30 @@ class PostsController < ApplicationController
   end
 
   def vote
-    
-          Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+   
+    if current_user.already_voted_on?(@post)
+
+      flash[:notice] = "User has already voted!"
+      redirect_to posts_path
+
+     else
+
+      Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
 
        respond_to do |format|   #because we are issueing an ajax request
         format.html do
           flash[:notice] = "Your vote was counted."
           redirect_to :back
         end
-       format.js do
-       render :vote # /posts/vote.js.erb
+         format.js do
+         render :vote # /posts/vote.js.erb
+        end
        end
     end
   end
 
+
+  
 
   private
 
