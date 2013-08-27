@@ -1,1 +1,2 @@
-alert("the vote.js.erb template is triggered !");
+$("#post_<%= @post.id %>_votes").html("<%= @post.total_votes %>");
+

@@ -59,7 +59,7 @@ class PostsController < ApplicationController
   end
 
   def vote
-   
+  
     if current_user.already_voted_on?(@post)
 
       flash[:notice] = "User has already voted!"
@@ -72,10 +72,10 @@ class PostsController < ApplicationController
        respond_to do |format|   #because we are issueing an ajax request
         format.html do
           flash[:notice] = "Your vote was counted."
-          redirect_to :back
+          redirect_to :back   # goes back to url from which it came.
         end
-         format.js 
-        
+         format.js
+       
        end
     end
   end
@@ -90,7 +90,7 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find(params[:id])
+    @post = Post.find_by(slug: params[:id])  # still called :id cause of resources. /posts/1 etc.
   end
 
   def require_creator

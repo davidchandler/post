@@ -11,12 +11,12 @@
 
    <% if current_user   %>
      (
-     <%= link_to '+', vote_post_path(post, vote:true),method: 'post',remote: true  %>
+     <%= link_to '+', vote_post_path(post, vote:true),method: 'post',remote: true  %> 
    <% end %>
    
    <%= post.total_votes.to_s %>
    <% if current_user   %>
-     <%= link_to '-', vote_post_path(post, vote:false),method: 'post',remote: true %>
+     <%= link_to '-', vote_post_path(post, vote:false),method: 'post',remote: true  %>
      )
    <% end %>
 
