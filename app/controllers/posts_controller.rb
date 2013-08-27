@@ -74,9 +74,8 @@ class PostsController < ApplicationController
           flash[:notice] = "Your vote was counted."
           redirect_to :back
         end
-         format.js do
-         render :vote # /posts/vote.js.erb
-        end
+         format.js 
+        
        end
     end
   end
