@@ -18,7 +18,7 @@
   
 
 <h5>Comments:</h5>
-<ul>
+
   <% @post.comments.each do |comment| %>
     <% if current_user   %>
       <%= link_to '+', vote_post_comment_path(comment.post, comment.id, vote:true),method: 'post' %>
@@ -27,11 +27,11 @@
     <% if current_user   %>
       <%= link_to '-', vote_post_comment_path(comment.post, comment.id, vote:false),method: 'post' %>
     <% end %>
-      <li><%= comment.body %> By <%= comment.creator.username %>  </li>
-    
+      <%= comment.body %> By <%= comment.creator.username %>  
+    </br>
   <% end %>
  
-</ul>
+
 
 
 <%= link_to 'Edit', edit_post_path(@post) %> 
