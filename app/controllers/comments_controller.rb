@@ -23,8 +23,8 @@ class CommentsController < ApplicationController
   def create
  
 
-    @post = Post.find_by(slug: params[:id])
-   # @post = Post.find(params[:post_id])
+    #@post = Post.find_by(slug: params[:id])
+    @post = Post.find_by(slug: params[:post_id]) 
     @comment = Comment.new(params.require(:comment).permit(:body))
     @comment.post = @post
     #@comment.user = current_user  # just assigns the value, does NOT hit the database.

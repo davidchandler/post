@@ -90,7 +90,9 @@ class PostsController < ApplicationController
   end
 
   def set_post
-    @post = Post.find_by(slug: params[:id])  # still called :id cause of resources. /posts/1 etc.
+
+   # @post = Post.find(params[:id]) 
+   @post = Post.find_by(slug: params[:id])  # still called :id cause of resources. /posts/1 etc.
   end
 
   def require_creator

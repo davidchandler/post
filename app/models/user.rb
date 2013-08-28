@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
    
 
    def already_voted_on?(obj)
-     self.votes.where(voteable: obj).size > 0
+     self.votes.where(voteable_id: obj).size > 0
    end 
 
 
